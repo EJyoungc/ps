@@ -20,6 +20,7 @@ class InventoryItemLive extends Component
     public $unit_of_measure;
     public $search = '';
     public $perPage = 10;
+    
 
     protected $rules = [
         'name'           => 'required|string|max:255',

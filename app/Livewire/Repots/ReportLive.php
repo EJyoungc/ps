@@ -1,43 +1,42 @@
 <?php
-
 namespace App\Livewire\Repots;
 
+use App\Models\PurchaseRequest;
+use App\Models\Bid;
+use App\Models\InventoryItem;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class ReportLive extends Component
 {
     use LivewireAlert;
-    public $modal = false;
-    public $id;
-    
-    public function create($id = null){
-        $this->id = $id;
-        if($id){
-            $this->modal = true;
-        }else{
-            $this->modal = true;
-        }
-    }
 
+    public $prStatusCounts = [];
+    public $bidStatusCounts = [];
+    public $stockLevels = [];
 
-    public function delete($id){
-        
-    }
+    public function mount()
+    {
+        // Purchase Requests by Status
+        $this->prStatusCounts = PurchaseRequest::select('status', DB::raw('count(*) as count'))
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
 
-    public function update(){
-        
-    }
+        // Bids by Status
+        $this->bidStatusCounts = Bid::select('status', DB::raw('count(*) as count'))
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
 
-    public function store(){
-        $this->validate([
-
-        ]);
-    }
-
-    public function cancel(){
-        $this->reset(["modal","id"]);
-        $this->dispatch('modal-cancel');
+        // Inventory: counts of items below minimum vs above
+        $below = InventoryItem::whereColumn('current_stock', '<', 'minimum_stock')->count();
+        $above = InventoryItem::whereColumn('current_stock', '>=', 'minimum_stock')->count();
+        $this->stockLevels = [
+            'Below Minimum' => $below,
+            'Sufficient'    => $above,
+        ];
     }
 
     public function render()
