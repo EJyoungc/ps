@@ -16,6 +16,14 @@ class Contract extends Model
         'renewal_alert_sent',
     ];
 
+
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];  
+
+    
+
     public function purchaseOrder()
     {
         return $this->belongsTo(PurchaseOrder::class);

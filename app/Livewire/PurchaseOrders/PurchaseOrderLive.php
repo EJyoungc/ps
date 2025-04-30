@@ -89,7 +89,7 @@ class PurchaseOrderLive extends Component
         ]);
 
         $this->alert('success', 'Purchase Order updated successfully');
-        NS::create( 'Purchase Order updated', $this->po_number ,'Purchase Order with ID ' . $this->poId . ' has been updated.');
+        NS::create( 'Purchase Order updated', $this->po_number, 'Purchase Order with ID ' . $this->poId . ' has been updated.', 'info');
         $this->cancel();
     }
 

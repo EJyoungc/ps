@@ -60,9 +60,14 @@
                                             <td>{{ $tender->deadline->format('Y-m-d') }}</td>
                                             <td>{{ ucfirst($tender->status) }}</td>
                                             <td>
+                                                @if ($tender->status == 'open')
                                                 <button wire:click="create({{ $tender->id }})" class="btn btn-sm btn-primary">
-                                                    {{ isset($myBids[$tender->id]) ? 'Edit Bid' : 'Place Bid' }}
-                                                </button>
+                                                    Place Bid
+                                               </button>
+
+                                                @else
+
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -99,6 +104,11 @@
                                             <td>{{ number_format($bid->amount,2) }}</td>
                                             <td>{{ ucfirst(str_replace('_',' ', $bid->status)) }}</td>
                                             <td>{{ $bid->created_at->format('Y-m-d') }}</td>
+                                            <td>
+                                                <button wire:click="create({{ $bid->id }})" class="btn btn-sm btn-primary">
+                                                     Edit Bid
+                                                </button>
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr><td colspan="4" class="text-center">You have not placed any bids yet.</td></tr>
@@ -125,11 +135,8 @@
                 </div>
                 <div class="form-group">
                     <label>Status</label>
-                    <select wire:model="status" class="form-control">
-                        <option value="submitted">Submitted</option>
-                        <option value="under_review">Under Review</option>
-                        <option value="accepted">Accepted</option>
-                        <option value="rejected">Rejected</option>
+                    <select wire:model="status"  class="form-control readonly"> ">
+                        <option selected value="submitted">Submitted</option>
                     </select>
                     @error('status')<span class="text-danger">{{ $message }}</span>@enderror
                 </div>

@@ -131,8 +131,8 @@ class User extends Authenticatable
         return $this->belongsTo(Supplier::class);
     }
 
-    // public function getSupplierIdAttribute()
-    // {
-    //     return $this->supplier_id ? $this->supplier_id : null;
-    // }
+    public function getSupplierIdAttribute()
+    {
+        return empty($this->supplier_id) ? null : $this->supplier_id ;
+    }
 }

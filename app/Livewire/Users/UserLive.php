@@ -116,7 +116,7 @@ class UserLive extends Component
     public function cancel()
     {
         $this->reset(["modal_roles", "id", "selectedRoles", "selectedPermissions", "selectedUser", "name", "email", "password","modal"]);
-        $this->dispatch('modal_roles-cancel');
+        $this->dispatch('modal-cancel');
     }
 
     public function render()
