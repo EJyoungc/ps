@@ -9,6 +9,7 @@ class Invoice extends Model
     //
     protected $fillable = [
         'purchase_order_id',
+        'invoice_number',
         'amount',
         'due_date',
         'status',

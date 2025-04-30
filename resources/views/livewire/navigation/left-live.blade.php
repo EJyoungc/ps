@@ -116,7 +116,7 @@
                     @role('supplier')
                     <li class="nav-header">SUPPLIER PORTAL</li>
                     <li class="nav-item">
-                        <a href="{{ route('supplier.bids') }}" class="nav-link">
+                        <a href="{{ route('supplier.my.bids') }}" class="nav-link">
                             <i class="nav-icon fas fa-money-check-alt"></i>
                             <p>My Bids</p>
                         </a>

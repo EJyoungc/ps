@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Bids\BidLive;
+use App\Livewire\Bids\MyBidsLive;
 use App\Livewire\Contracts\ContractLive;
 use App\Livewire\DashboardLive;
 use App\Livewire\Departments\DepartmentLive;
@@ -12,9 +13,11 @@ use App\Livewire\Permissions\PermissionLive;
 use App\Livewire\Profile\ProfileLive;
 use App\Livewire\PurchaseOrders\PurchaseOrderLive;
 use App\Livewire\PurchaseRequests\PurchaseRequestLive;
+use App\Livewire\Repot\ReportsPdfLive;
 use App\Livewire\Repots\ReportLive;
 use App\Livewire\Shipments\ShipmentLive;
 use App\Livewire\Suppliers\SupplierLive;
+use App\Livewire\Supplies\SupplierCheckLive;
 use App\Livewire\Tenders\TenderLive;
 use App\Livewire\Users\UserLive;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get("/",DashboardLive::class)->name('dashboard');
+Route::get("/", function () { return view("welcome"); })->name('dashboard');
 
 Route::middleware([
     'auth:sanctum',
@@ -36,7 +39,7 @@ Route::middleware([
     Route::get('/dashboard',DashboardLive::class)->name('dashboard');
      // Admin Routes
      Route::middleware(['role:admin'])->prefix('admin')->group(function () {
-        
+
 Route::get('/permissions',PermissionLive::class)->name('permissions');
         Route::get('/users', UserLive::class)->name('admin.users');
         Route::get('/departments', DepartmentLive::class)->name('admin.departments');
@@ -63,6 +66,7 @@ Route::get('/permissions',PermissionLive::class)->name('permissions');
     // Supplier Routes
     Route::middleware(['role:supplier'])->prefix('supplier')->group(function () {
         Route::get('/bids', BidLive::class)->name('supplier.bids');
+        Route::get('/my-bids', MyBidsLive::class)->name('supplier.my.bids');
         Route::get('/orders', PurchaseOrderLive::class)->name('supplier.orders');
         Route::get('/invoices', InvoiceLive::class)->name('supplier.invoices');
     });
@@ -76,7 +80,11 @@ Route::get('/permissions',PermissionLive::class)->name('permissions');
     // Shared Routes (Multi-role Access)
     Route::middleware(['role:procurement_officer|department_head|finance_officer'])->group(function () {
         Route::get('/reports', ReportLive::class)->name('reports');
+        Route::get('/reports/pdf', ReportsPdfLive::class)->name('reports.pdf');
     });
+
+
+    Route::get('check/supplier',SupplierCheckLive::class)->name('check.supplier');
 
 
 });

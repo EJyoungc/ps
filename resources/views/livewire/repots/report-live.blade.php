@@ -18,6 +18,12 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+
+                <div class="col-12 col-lg-12">
+                    <div class="d-flex justify-content-end py-2">
+                        <a href="{{ route('reports.pdf') }}" class="btn btn-dark">Download PDF</a>
+                    </div>
+                </div>
                 <!-- Purchase Requests Status Chart -->
                 <div class="col-md-6">
                     <div class="card card-primary">

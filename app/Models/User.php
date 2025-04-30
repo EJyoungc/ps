@@ -50,6 +50,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'supplier_id',
     ];
 
     /**
@@ -124,4 +125,14 @@ class User extends Authenticatable
     public function department(){
         return $this->belongsTo(Department::class);
     }
+
+
+    public function supplier(){
+        return $this->belongsTo(Supplier::class);
+    }
+
+    // public function getSupplierIdAttribute()
+    // {
+    //     return $this->supplier_id ? $this->supplier_id : null;
+    // }
 }
