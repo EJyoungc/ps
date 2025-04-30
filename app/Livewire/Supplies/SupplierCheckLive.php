@@ -6,7 +6,7 @@ use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use Livewire\Component; use App\Services\NS;
 
 class SupplierCheckLive extends Component
 {

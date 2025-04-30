@@ -4,7 +4,7 @@ namespace App\Livewire\Departments;
 
 use App\Models\Department;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use Livewire\Component; use App\Services\NS;
 
 class DepartmentLive extends Component
 {

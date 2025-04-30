@@ -5,8 +5,9 @@ namespace App\Livewire\PurchaseOrders;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseRequest;
 use App\Models\Supplier;
+
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use Livewire\Component; use App\Services\NS;
 use Livewire\WithPagination;
 
 class PurchaseOrderLive extends Component
@@ -51,6 +52,7 @@ class PurchaseOrderLive extends Component
             $this->po_number = null;
             $this->delivery_date = now()->format('Y-m-d');
             $this->status = 'draft';
+
         }
 
         $this->modal = true;
@@ -69,6 +71,7 @@ class PurchaseOrderLive extends Component
         ]);
 
         $this->alert('success', 'Purchase Order created successfully');
+        NS::create( 'Purchase Order created', $this->po_number ,'Purchase Order with ID ' . $this->poId . ' has been created.');
         $this->cancel();
     }
 
@@ -86,12 +89,14 @@ class PurchaseOrderLive extends Component
         ]);
 
         $this->alert('success', 'Purchase Order updated successfully');
+        NS::create( 'Purchase Order updated', $this->po_number ,'Purchase Order with ID ' . $this->poId . ' has been updated.');
         $this->cancel();
     }
 
     public function delete($id)
     {
-        PurchaseOrder::findOrFail($id)->delete();
+        $po =PurchaseOrder::findOrFail($id)->delete();
+        NS::create( 'Purchase Order deleted', $po ,'Purchase Order with ID ' . $po->id . ' has been deleted.');
         $this->alert('success', 'Purchase Order deleted successfully');
     }
 

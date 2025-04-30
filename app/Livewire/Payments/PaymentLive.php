@@ -4,7 +4,7 @@ namespace App\Livewire\Payments;
 
 use App\Models\Payment;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use Livewire\Component; use App\Services\NS;
 
 class PaymentLive extends Component
 {

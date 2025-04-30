@@ -8,7 +8,7 @@ use App\Models\Tender;
 use App\Models\Bid;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use Livewire\Component; use App\Services\NS;
 use Livewire\WithPagination;
 
 class MyBidsLive extends Component
@@ -43,7 +43,7 @@ class MyBidsLive extends Component
             ['tender_id' => $this->tenderId, 'supplier_id' => Auth::id()],
             ['amount' => $this->amount, 'proposal' => $this->proposal, 'status' => $this->status]
         );
-
+        
         $this->alert('success', 'Your bid has been submitted.');
         $this->cancel();
     }

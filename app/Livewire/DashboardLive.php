@@ -16,7 +16,7 @@ use App\Models\Invoice;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
-use Livewire\Component;
+use Livewire\Component; use App\Services\NS;
 
 class DashboardLive extends Component
 {

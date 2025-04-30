@@ -12,7 +12,7 @@ use App\Models\Payment;
 use App\Models\PurchaseRequest;
 use App\Models\Tender;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Livewire\Component;
+use Livewire\Component; use App\Services\NS;
 
 class ReportsPdfLive extends Component
 {

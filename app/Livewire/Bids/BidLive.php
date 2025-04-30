@@ -5,8 +5,10 @@ namespace App\Livewire\Bids;
 use App\Models\Bid;
 use App\Models\Tender;
 use App\Models\Supplier;
+
+use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use Livewire\Component; use App\Services\NS;
 use Livewire\WithPagination;
 
 class BidLive extends Component
@@ -62,7 +64,7 @@ class BidLive extends Component
     {
         $this->validate();
 
-        Bid::create([
+        $Bid =Bid::create([
             'tender_id'   => $this->tender_id,
             'supplier_id' => $this->supplier_id,
             'amount'      => $this->amount,
@@ -71,6 +73,7 @@ class BidLive extends Component
         ]);
 
         $this->alert('success', 'Bid submitted successfully');
+        NS::create('Bid created', $Bid ,'Bid with ID ' . $Bid->id . ' has been created.');
         $this->cancel();
     }
 
@@ -86,14 +89,19 @@ class BidLive extends Component
             'proposal'    => $this->proposal,
             'status'      => $this->status,
         ]);
-
+        
         $this->alert('success', 'Bid updated successfully');
+        NS::create($bid->user_id ,'Bid updated', $bid ,'Bid with ID ' . $this->bidId . ' has been updated.', Auth::id());
         $this->cancel();
     }
 
     public function delete($id)
     {
-        Bid::findOrFail($id)->delete();
+        $bid = Bid::findOrFail($id);
+
+        NS::create('Bid deleted', $bid, 'Bid with ID ' . $id . ' has been deleted.', Auth::id());
+        $bid->delete();
+        
         $this->alert('success', 'Bid deleted successfully');
     }
 

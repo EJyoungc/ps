@@ -5,8 +5,11 @@ namespace App\Livewire\PurchaseRequests;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use App\Models\PurchaseRequest;
+
 use App\Models\User;
 use App\Models\Department;
+use App\Services\NS;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseRequestLive extends Component
 {
@@ -37,6 +40,7 @@ class PurchaseRequestLive extends Component
 
     public function delete($id){
         PurchaseRequest::find($id)->delete();
+        NS::create(Auth::user()->id,'purchase_request', 'deleted', $id , 'deleted' );
         $this->alert('success', 'Request deleted!');
     }
 
@@ -57,6 +61,7 @@ class PurchaseRequestLive extends Component
             $this->alert('success', 'Request updated!');
         } else {
             PurchaseRequest::create($data);
+            NS::create($this->user_id,'purchase_request', 'created', $this->id);
             $this->alert('success', 'Request created!');
         }
         $this->cancel();
@@ -64,6 +69,7 @@ class PurchaseRequestLive extends Component
 
     public function cancel(){
         $this->reset(["modal", "id", "user_id", "department_id", "items", "specifications", "estimated_cost", "status"]);
+
         $this->dispatch('modal-cancel');
     }
 
