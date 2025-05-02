@@ -73,11 +73,11 @@ class SupplierCheckLive extends Component
 
     public function get_all_orgs()
     {
-        $this->liststatus = !$this->liststatus;
+        // $this->liststatus = !$this->liststatus;
         $this->search = '';
-        $this->organizations = $this->liststatus
-            ? Supplier::all()
-            : [];
+        $this->organizations = Supplier::all();
+        $this->liststatus = true;
+            
     }
 
     public function updatedSearch()
@@ -95,6 +95,11 @@ class SupplierCheckLive extends Component
     public function select_org($id)
     {
         $this->organization = Supplier::findOrFail($id);
+
+        $this->user->supplier_id = $this->organization->id;
+        $this->user->save();
+        $this->alert('success', 'Organization successfully selected');
+        
         $this->search = '';
         $this->organizations = [];
         $this->liststatus = false;

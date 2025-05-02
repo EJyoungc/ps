@@ -71,6 +71,20 @@
                     </ul>
                 @endif
 
+                @if ($liststatus)
+                <ul class="list-group mt-2">
+                    @forelse ($organizations as $item)
+                        <li class="list-group-item d-flex align-items-center"
+                            wire:click.prevent="select_org({{ $item->id }})">
+                            <i class="fas fa-angle-right"></i>
+                            <span class="pl-2 text-capitalize">{{ $item->company_name }}</span>
+                        </li>
+                    @empty
+                        <li class="list-group-item text-center">No organizations found.</li>
+                    @endforelse
+                </ul>
+            @endif
+
                 <button class="btn btn-primary w-100 mt-2" wire:click.prevent="save"
                     @if (empty($organization)) disabled @endif>
                     Save <x-spinner for="save" />

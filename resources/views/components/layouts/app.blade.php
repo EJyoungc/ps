@@ -22,6 +22,7 @@
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
+        @livewire('checksupplier-live')
         @livewire('navigation.top-live')
         <!-- /.navbar -->
 
