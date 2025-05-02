@@ -86,6 +86,7 @@ Route::get('/permissions',PermissionLive::class)->name('permissions');
     });
     
 
+    
     Route::get('check/supplier',SupplierCheckLive::class)->name('check.supplier');
 
 
