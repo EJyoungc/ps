@@ -39,6 +39,7 @@
                                     <thead>
                                         <tr>
                                             <th>Title</th>
+                                            <th>Bids</th>
                                             <th>Description</th>
                                             <th>Deadline</th>
                                             <th>Status</th>
@@ -49,6 +50,7 @@
                                         @forelse($tenders as $tender)
                                             <tr>
                                                 <td>{{ $tender->title }}</td>
+                                                <td>{{ $tender->bids->count() }}</td>
                                                 <td>{{ Str::limit($tender->description, 50) }}</td>
                                                 <td>{{ $tender->deadline->format('M d, Y') }}</td>
                                                 <td>
@@ -64,6 +66,7 @@
                                                     </span>
                                                 </td>
                                                 <td>
+                                                    <a href="{{ route('procurement.tenders.bids',$tender->id) }}" class="btn btn-sm btn-primary">View</a>
                                                     <button wire:click="create({{ $tender->id }})"
                                                         class="btn btn-sm btn-warning">
                                                         Edit
